@@ -10,11 +10,23 @@ spring:
       enabled: true
       additional-paths: src/main/java
 
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
   thymeleaf:
     cache: false
 
 server:
-  port: 8080
+  port: 8081
 
 mybatis:
   mapper-locations: classpath:/mapper/*Mapper.xml
+logging:
+  level:
+    net:
+      hnjd:
+        mapper:
+          CourseOrderMapper: DEBUG
+

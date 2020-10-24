@@ -3,6 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.hnjd.mapper.CourseOrderMapper">
+    <sql id="search_where">
+        <where>
+            <if test="condition.wechat_no !=null and condition.wechat_no !=''">
+                wechat_no like '%${condition.wechat_no}%'
+            </if>
+            <if test="condition.wechat_mark !=null and condition.wechat_mark !=''">
+                and wechat_no like '%${condition.wechat_mark}%'
+            </if>
+            <if test="condition.qq_no !=null and condition.qq_no !=''">
+                and wechat_no like '%${condition.qq_no}%'
+            </if>
+        </where>
+    </sql>
     <insert id="insert" parameterType="net.hnjd.pojo.CourseOrder">
         insert t_course_order
         (uuid,order_id,name,wechat_no,wechat_mark,qq_no,tel,course_name,course_price,order_date,
@@ -10,21 +23,66 @@
         values
         (UUID(),UUID(),#{name},#{wechat_no},
         #{wechat_mark},#{qq_no},#{tel},
-        #{course_name},#{course_price},#{order_date},current_timestamp(),#{remark})
+        #{course_name},#{course_price},#{order_date},current_timestamp(),#{remark});
     </insert>
+    <update id="update">
+        update t_course_order
+        <set>
+            <if test="name !=null">
+                name = #{name},
+            </if>
+            <if test="wechat_no !=null">
+                wechat_no = #{wechat_no},
+            </if>
+            <if test="wechat_mark !=null">
+                wechat_mark = #{wechat_mark},
+            </if>
+            <if test="qq_no !=null">
+                qq_no = #{qq_no},
+            </if>
+            <if test="tel !=null">
+                tel = #{tel},
+            </if>
+            <if test="course_name !=null">
+                course_name = #{course_name},
+            </if>
+            <if test="course_price !=null">
+                course_price = #{course_price},
+            </if>
+            <if test="order_date !=null">
+                order_date = #{order_date},
+            </if>
+            <if test="update_datetime !=null">
+                update_datetime = #{update_datetime},
+            </if>
+            <if test="remark !=null">
+                remark = #{remark}
+            </if>
+        </set>
+        where order_id = #{order_id}
+    </update>
     <delete id="deleteOrderId">
-        delete from t_course_order where order_id = #{order_id}
+        delete from t_course_order where order_id = #{order_id};
     </delete>
 
     <select id="findCountByMap" resultType="int">
-        select count(*) from t_course_order;
+        select count(*) from t_course_order
+        <include refid="search_where"></include>
     </select>
 
     <select id="findListByMap" parameterType="map" resultType="net.hnjd.pojo.CourseOrder">
-        select * from t_course_order order by order_date desc limit #{start},#{pageSize};
+        select * from t_course_order
+        <include refid="search_where"></include>
+        order by order_date desc limit #{start},#{pageSize};
     </select>
     <select id="findByOrderId" resultType="net.hnjd.pojo.CourseOrder">
         select * from t_course_order where order_id = #{order_id}
     </select>
-
+    <select id="getMonthIncomes" resultType="net.hnjd.pojo.MonthIncome">
+        SELECT LEFT(order_date,7) AS date,
+        COUNT(*) AS total,
+        SUM(CONVERT(course_price,DECIMAL(18,2))) AS income
+        FROM t_course_order
+        GROUP BY LEFT(order_date,7);
+    </select>
 </mapper>

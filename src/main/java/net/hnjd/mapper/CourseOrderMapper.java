@@ -1,6 +1,7 @@
 package net.hnjd.mapper;
 
 import net.hnjd.pojo.CourseOrder;
+import net.hnjd.pojo.MonthIncome;
 
 import java.util.List;
 import java.util.Map;
@@ -20,4 +21,8 @@ public interface CourseOrderMapper {
     CourseOrder findByOrderId(String orderId);
 
     void deleteOrderId(String order_id);
+
+    void update(CourseOrder order);
+
+    List<MonthIncome> getMonthIncomes();
 }

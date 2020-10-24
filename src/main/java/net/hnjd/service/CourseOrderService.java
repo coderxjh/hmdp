@@ -2,11 +2,11 @@ package net.hnjd.service;
 
 import net.hnjd.mapper.CourseOrderMapper;
 import net.hnjd.pojo.CourseOrder;
+import net.hnjd.pojo.MonthIncome;
 import net.hnjd.pojo.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +28,7 @@ public class CourseOrderService {
         Map<String, Object> params = new HashMap<>();
         params.put("start", (page - 1) * pageSize);
         params.put("pageSize", pageSize);
+        params.put("condition",condition);
         int totalCount = courseOrderMapper.findCountByMap(params);
         List<CourseOrder> list = courseOrderMapper.findListByMap(params);
         //获取查询数据
@@ -47,5 +48,13 @@ public class CourseOrderService {
 
     public void deleteByOrderId(String order_id) {
         courseOrderMapper.deleteOrderId(order_id);
+    }
+
+    public void update(CourseOrder order) {
+        courseOrderMapper.update(order);
+    }
+
+    public List<MonthIncome> getMonthIncomes() {
+        return courseOrderMapper.getMonthIncomes();
     }
 }
