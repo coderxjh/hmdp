@@ -13,6 +13,22 @@ public class PageResult<T> {
     private int count;//总记录数:30000
     private List<T> data;
 
+    public static <T> PageResult success(int count) {
+        PageResult<T> pageResult = new PageResult<>();
+        pageResult.setCode(0);
+        pageResult.setMsg("成功");
+        pageResult.setCount(count);
+        return pageResult;
+    }
+
+    public static <T> PageResult error(int count){
+        PageResult<T> pageResult = new PageResult<>();
+        pageResult.setCode(1);
+        pageResult.setMsg("错误");
+        pageResult.setCount(count);
+        return pageResult;
+    }
+
     public int getCode() {
         return code;
     }

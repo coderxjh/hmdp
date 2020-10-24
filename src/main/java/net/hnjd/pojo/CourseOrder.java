@@ -116,4 +116,22 @@ public class CourseOrder {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+    @Override
+    public String toString() {
+        return "CourseOrder{" +
+                "uuid='" + uuid + '\'' +
+                ", order_id='" + order_id + '\'' +
+                ", name='" + name + '\'' +
+                ", wechat_no='" + wechat_no + '\'' +
+                ", wechat_mark='" + wechat_mark + '\'' +
+                ", qq_no='" + qq_no + '\'' +
+                ", tel='" + tel + '\'' +
+                ", course_name='" + course_name + '\'' +
+                ", course_price='" + course_price + '\'' +
+                ", order_date='" + order_date + '\'' +
+                ", update_datetime=" + update_datetime +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
 }

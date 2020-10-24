@@ -26,6 +26,8 @@ public class CourseOrderService {
         pageResult.setCode(0);
         //查询总记录数
         Map<String, Object> params = new HashMap<>();
+        params.put("start", (page - 1) * pageSize);
+        params.put("pageSize", pageSize);
         int totalCount = courseOrderMapper.findCountByMap(params);
         List<CourseOrder> list = courseOrderMapper.findListByMap(params);
         //获取查询数据
@@ -34,4 +36,16 @@ public class CourseOrderService {
         return pageResult;
     }
 
+
+    public void save (CourseOrder courseOrder){
+        courseOrderMapper.insert(courseOrder);
+    }
+
+    public CourseOrder findByOrderId(String order_id) {
+        return courseOrderMapper.findByOrderId(order_id);
+    }
+
+    public void deleteByOrderId(String order_id) {
+        courseOrderMapper.deleteOrderId(order_id);
+    }
 }

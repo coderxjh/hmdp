@@ -3,12 +3,28 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.hnjd.mapper.CourseOrderMapper">
+    <insert id="insert" parameterType="net.hnjd.pojo.CourseOrder">
+        insert t_course_order
+        (uuid,order_id,name,wechat_no,wechat_mark,qq_no,tel,course_name,course_price,order_date,
+        update_datetime,remark)
+        values
+        (UUID(),UUID(),#{name},#{wechat_no},
+        #{wechat_mark},#{qq_no},#{tel},
+        #{course_name},#{course_price},#{order_date},current_timestamp(),#{remark})
+    </insert>
+    <delete id="deleteOrderId">
+        delete from t_course_order where order_id = #{order_id}
+    </delete>
+
     <select id="findCountByMap" resultType="int">
         select count(*) from t_course_order;
     </select>
 
     <select id="findListByMap" parameterType="map" resultType="net.hnjd.pojo.CourseOrder">
-        select * from t_course_order;
+        select * from t_course_order order by order_date desc limit #{start},#{pageSize};
+    </select>
+    <select id="findByOrderId" resultType="net.hnjd.pojo.CourseOrder">
+        select * from t_course_order where order_id = #{order_id}
     </select>
 
 </mapper>

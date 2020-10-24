@@ -2,6 +2,7 @@ package net.hnjd.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author simba@onlying.cn
@@ -14,4 +15,9 @@ public class IndexController {
     public String index() {
         return "index";
     }
+
+//    @RequestMapping("/test")
+//    public String test() {
+//        return "Hello World";
+//    }
 }
