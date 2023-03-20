@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmdp.mapper.VoucherOrderMapper">
+
+    <insert id="insertVoucherOrder">
+        insert into tb_voucher_order(`id`, `voucher_id`, `user_id`)
+        values (#{id}, #{voucherId}, #{userId})
+    </insert>
+    <select id="selectCountByUserIdAndVoucherId" resultType="java.lang.Integer">
+        select count(id) from tb_voucher_order where user_id = #{id} and voucher_id=#{voucherId}
+    </select>
+</mapper>
